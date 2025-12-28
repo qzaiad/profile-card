@@ -129,7 +129,17 @@ body {
 }
 
 .lights {
-  display: none;
+  /* display: none; */
+  /* 
+    instead of hard display, use animation by using opacity/visibility
+   */
+  opacity: 0;
+  visibility: hidden;
+  /*
+    - all ? animate every property that can be animated
+    - 0.3s ? animation lasts 0.3 seconds (300ms)
+   */
+  transition: all 0.3s;
   position: absolute; /* otherwise it considered an element for flex */
   /* left: 2.5rem; */
   z-index: 2; /* should be aboce the picture */
@@ -162,7 +172,9 @@ body {
 }
 
 .container:has(.lights-input:checked) .lights {
-  display: block;
+  /* display: block; */
+  opacity: 1;
+  visibility: visible;
 }
 
 .top {
