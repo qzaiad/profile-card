@@ -53,11 +53,66 @@ body {
   background-size: 1.2rem 1.2rem;
 }
 
+.lights-control {
+  display: flex;
+  align-items: center; /* cross axis (vertically) */
+  gap: 1rem;
+  position: absolute;
+  top: 2rem;
+}
+
+.lights-label {
+  width: 4.2rem;
+  height: 2.2rem;
+  border-radius: 1.5rem;
+  background-color: black;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 0.3rem 0.4rem;
+}
+
+.lights-label:after {
+  content: "";
+  /* 
+    Block-level elements are designed to structure the page vertically.
+    it behaves like this:
+    - Starts on a new line
+    - Takes up the full available width of its parent (by default)
+    - Respects width and height
+    - Allows margin and padding on all sides
+
+
+    display: inline;
+    makes an element behave as an inline element, meaning it flows horizontally with the surrounding content rather than starting on a new line.
+    - Width and height are ignored
+    - vertical margin does not push other elements
+   */
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.lights-input {
+  display: none;
+}
+
+.lights-input:checked + .lights-label {
+  background-color: white;
+}
+
+.lights-input:checked + .lights-label:after {
+  background-color: green;
+  transform: translateX(2.1rem);
+  transition: background-color 0.3s;
+}
+
 .card {
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  min-width: 35rem;
+  min-width: 36.5rem;
   /* 
     overflow property controls what happens when the content inside an element is bigger than the element?s box (width/height).
 
@@ -71,6 +126,43 @@ body {
   overflow: hidden;
   background-color: white;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.lights {
+  display: none;
+  position: absolute; /* otherwise it considered an element for flex */
+  /* left: 2.5rem; */
+  z-index: 2; /* should be aboce the picture */
+
+}
+
+/* red bulbs */
+.bulb-odd {
+  /* 
+    alternate: means start from 0%. after reaching 100% got back to 0% and so on
+   */
+  animation: party 0.5s infinite alternate;
+}
+
+/* yellow bulbs */
+.bulb-even {
+  /* 
+    alternate-reverse: means start from 100%. after reaching 0% got back to 100% and so on
+   */
+  animation: party 0.5s infinite alternate-reverse;
+}
+
+@keyframes party {
+  from {  /* same as 0% */
+    fill: #FF1111;
+  }
+  to {    /* same as 100% */
+    fill: #F3EA19
+  }
+}
+
+.container:has(.lights-input:checked) .lights {
+  display: block;
 }
 
 .top {
@@ -133,6 +225,11 @@ body {
 }
 
 /* 
-  A website is called "pixel perfect" if the actual oage is identical
-  to the expected page
+  - A website is called "pixel perfect" if the actual oage is identical to the expected page
+
+  - Image Editor: Figma
+   - export image as svg
+
+  - https://caniuse.com/
+   - give info about support of browsers for CSS features such as 'has'
  */
